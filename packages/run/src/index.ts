@@ -5,13 +5,15 @@ import { load, logger, Options, localServices } from "@deliverybot/core";
 
 const services = localServices();
 const bundle = path.resolve(__dirname, "..", "bundle");
+const PRIVATE_KEY = Buffer.from(env("PRIVATE_KEY"), 'base64').toString('ascii');
+
 const opts: Options = {
   logger,
   id: Number(env("APP_ID")),
   webhookPath: env("WEBHOOK_PATH"),
   webhookSecret: env("WEBHOOK_SECRET"),
   appSecret: env("WEBHOOK_SECRET") || "development",
-  privateKey: env("PRIVATE_KEY"),
+  privateKey: PRIVATE_KEY,
   config: {
     slackLoginUrl: env("SLACK_LOGIN_URL"),
     slackClientId: env("SLACK_CLIENT_ID"),
