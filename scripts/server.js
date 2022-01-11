@@ -13,14 +13,14 @@ function proxy() {
   const SmeeClient = require("smee-client");
   const smee = new SmeeClient({
     source: process.env.WEBHOOK_PROXY_URL,
-    target: `http://localhost:3000`
+    target: `http://localhost:${process.env.PORT}`
   });
   smee.start();
 }
 
 function start() {
-  state.server = require('@deliverybot/run').express.listen(3000, () => {
-    console.log('Listening on 3000');
+  state.server = require('@deliverybot/run').express.listen(process.env.PORT, () => {
+    console.log(`Listening on ${process.env.PORT}`);
   });
   state.server.on('connection', (socket) => {
     state.sockets.push(socket);
